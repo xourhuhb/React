@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { HEADER_LOGO, LOCATION_LOGO } from "../utils/constants";
 
 export const Header = () => {

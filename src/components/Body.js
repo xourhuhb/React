@@ -1,6 +1,7 @@
 import RestaurentCard from "./RestaurentCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restoList, setRestoList] = useState([]);
@@ -34,7 +35,12 @@ const Body = () => {
     );
     setFilteredRestoList(searchResto !== "" ? filteredRestaurants : restoList);
   };
-  console.log(restoList);
+
+  const status = useOnlineStatus();
+  if (status === false) {
+    return <h2>Check your internet</h2>;
+  }
+
   if (restoList.length === 0) {
     return <Shimmer />;
   }
