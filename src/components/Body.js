@@ -2,6 +2,8 @@ import RestaurentCard from "./RestaurentCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { ALL_RESTAURANTS } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restoList, setRestoList] = useState([]);
@@ -13,9 +15,7 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.07480&lng=72.88560&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const response = await fetch(ALL_RESTAURANTS);
     const json = await response.json();
     let restaurantsList =
       json.data?.cards[1]?.card?.card?.gridElements.infoWithStyle.restaurants ||
@@ -45,22 +45,24 @@ const Body = () => {
     return <Shimmer />;
   }
   return (
-    <div className="body">
+    <div className="w-full">
       <div className="search-filter">
         <input
-          className="search-input"
+          className="box-content p-1 mt-2 w-72"
           type="text"
           value={searchResto}
           onChange={(e) => setSearchresto(e.target.value)}
           placeholder="Search for restaruants and foods"
         />
-        <button className="search-button" onClick={handleSearch}>
+        <button className="h-5" onClick={handleSearch}>
           Search
         </button>
       </div>
-      <div className="card-container">
+      <div className="flex flex-wrap items-center justify-evenly p-5">
         {filteredRestoList.map((val) => (
+      <Link to={"/restaurants/" + val.info.id}>
           <RestaurentCard key={val.info.id} resData={val} />
+      </Link>
         ))}
       </div>
     </div>
