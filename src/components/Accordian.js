@@ -2,29 +2,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import FoodList from "./FoodList";
-import { useState } from "react";
 
-const Accordian = ({ itemCards }) => {
-  const [showItems, setShowItems] = useState(false);
-
+const Accordian = ({ itemCards, showItems, setShowIndex }) => {
   const handleClick = () => {
-    setShowItems(!showItems);
+    setShowIndex();
   };
   return (
-    <div className=" p-2 mx-auto cursor-pointer  w-7/12 bg-slate-50 my-2 rounded-md shadow-lg">
-      <div className="flex justify-between items-center " onClick={handleClick}>
-        <div>
-          <span className="font-semibold">
-            {itemCards.title} ({itemCards.itemCards.length})
-          </span>
+    <div>
+      <div className=" p-2 mx-auto cursor-pointer bg-white my-2 rounded-md shadow-lg">
+        <div
+          className="flex justify-between items-center "
+          onClick={handleClick}
+        >
+          <div>
+            <span className="font-semibold">
+              {itemCards.title} ({itemCards.itemCards.length})
+            </span>
+          </div>
+          {showItems ? (
+            <FontAwesomeIcon icon={faChevronUp} />
+          ) : (
+            <FontAwesomeIcon icon={faChevronDown} />
+          )}
         </div>
-        {showItems ? (
-          <FontAwesomeIcon icon={faChevronUp} />
-        ) : (
-          <FontAwesomeIcon icon={faChevronDown} />
-        )}
       </div>
-      {showItems && <FoodList foodData={itemCards.itemCards} />}
+      {showItems ? <FoodList foodData={itemCards.itemCards} /> : ""}
+      <div className="bg-slate-200 h-2 shadow-lg rounded-md mx-auto"></div>
     </div>
   );
 };

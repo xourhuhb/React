@@ -4,6 +4,8 @@ import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { ALL_RESTAURANTS } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Body = () => {
   const [restoList, setRestoList] = useState([]);
@@ -54,15 +56,15 @@ const Body = () => {
           onChange={(e) => setSearchresto(e.target.value)}
           placeholder="Search for restaruants and foods"
         />
-        <button className="h-5" onClick={handleSearch}>
-          Search
+        <button className="h-4 w-4" onClick={handleSearch}>
+          <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>
       <div className="flex flex-wrap items-center justify-evenly p-5">
         {filteredRestoList.map((val) => (
-      <Link to={"/restaurants/" + val.info.id}>
-          <RestaurentCard key={val.info.id} resData={val} />
-      </Link>
+          <Link to={"/restaurants/" + val.info.id}>
+            <RestaurentCard key={val.info.id} resData={val} />
+          </Link>
         ))}
       </div>
     </div>
