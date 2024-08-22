@@ -3,6 +3,9 @@ import { LOCATION_LOGO } from "../utils/constants";
 import logo from "../assets/logo.png";
 import { useState } from "react";
 import SignIn from "./SignIn";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export const Header = () => {
   const [signIn, setSignIn] = useState(false);
@@ -13,6 +16,8 @@ export const Header = () => {
   const handleClose = () => {
     setSignIn(false);
   };
+
+  const cartItems = useSelector((store) => store.cart.items);
   return (
     <div className="sticky top-0 z-[1000] bg-white p-2 shadow-md">
       <div className="flex justify-between items-center">
@@ -26,28 +31,32 @@ export const Header = () => {
               <li className="p-5">Home</li>
             </Link>
             <li className="p-5">
-              <button className="no-underline" onClick={handleOpen}>Sign In</button>
+              <button className="no-underline" onClick={handleOpen}>
+                Sign In
+              </button>
             </li>
-            <Link className="no-underline">
-              <li className="p-5">Cart</li>
+            <Link to="/cart" className="no-underline">
+              <li className="p-5 font-semibold text-green-600">
+                <FontAwesomeIcon icon={faShoppingCart} />({cartItems.length})
+              </li>
             </Link>
           </ul>
         </div>
         <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[999] transition-opacity duration-300 ${
-          signIn ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={handleClose} // Optionally close the panel when clicking outside
-      />
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[999] transition-opacity duration-300 ${
+            signIn ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={handleClose} // Optionally close the panel when clicking outside
+        />
 
-      {/* Sign-in panel */}
-      <div
-        className={`fixed top-0 right-0 h-full bg-white shadow-lg transition-transform duration-300 ${
-          signIn ? "translate-x-0" : "translate-x-full"
-        } w-4/12 z-[1000]`}
-      >
-        <SignIn handleClose={handleClose} />
-      </div>
+        {/* Sign-in panel */}
+        <div
+          className={`fixed top-0 right-0 h-full bg-white shadow-lg transition-transform duration-300 ${
+            signIn ? "translate-x-0" : "translate-x-full"
+          } w-4/12 z-[1000]`}
+        >
+          <SignIn handleClose={handleClose} />
+        </div>
       </div>
     </div>
   );

@@ -38,6 +38,7 @@ const Body = () => {
     setFilteredRestoList(searchResto !== "" ? filteredRestaurants : restoList);
   };
 
+  console.log(restoList);
   const status = useOnlineStatus();
   if (status === false) {
     return <h2>Check your internet</h2>;
@@ -56,8 +57,8 @@ const Body = () => {
           onChange={(e) => setSearchresto(e.target.value)}
           placeholder="Search for restaruants and foods"
         />
-        <button className="h-4 w-4" onClick={handleSearch}>
-          <FontAwesomeIcon icon={faSearch} />
+        <button data-testid="search" className="h-4 w-4" onClick={handleSearch}>
+          {/* <FontAwesomeIcon icon={faSearch} /> */} Search
         </button>
       </div>
       <div className="flex flex-wrap items-center justify-evenly p-5">

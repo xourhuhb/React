@@ -1,6 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import { IMAGE_CDN } from "../utils/constants";
+import { addItem } from "../utils/cartSlice";
 
 const FoodList = ({ foodData }) => {
+  console.log(foodData);
+
+  const dispatch = useDispatch();
+
+  const handleCartItems = (lst) => {
+    dispatch(addItem(lst));
+  };
   return (
     <div className="bg-white mx-auto">
       {foodData.map((lst) => (
@@ -36,7 +45,10 @@ const FoodList = ({ foodData }) => {
                 className="rounded-xl w-36 h-32 mb-3"
                 src={IMAGE_CDN + lst.card.info.imageId}
               />
-              <button className="absolute rounded-md w-24 h-10 bg-white text-green-600 hover:bg-slate-300 font-bold border ">
+              <button
+                onClick={() => handleCartItems(lst)}
+                className="absolute rounded-md w-24 h-10 bg-white text-green-600 hover:bg-slate-300 font-bold border "
+              >
                 ADD
               </button>
             </div>

@@ -1,6 +1,6 @@
 const Shimmer = () => {
   return (
-    <div className="flex flex-wrap justify-evenly">
+    <div data-testid="loading" className="flex flex-wrap justify-evenly">
       {Array.from({ length: 10 }).map((_, idx) => (
         <div key={idx} className="w-48 p-2.5">
           <div className="w-full h-48 mt-12 rounded-lg bg-gray-200"></div>
